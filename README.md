@@ -183,7 +183,7 @@ No Antigravity, use a ponte mcp-remote: é o caminho testado. A conexão direta 
    }
    ```
 5. Conferir o JSON e gravar em **UTF-8 sem BOM** (com BOM o Antigravity deixa de ler o arquivo inteiro).
-6. Pedir à pessoa para fechar o Antigravity por completo e abrir de novo. Quando ele carregar o `vault`, o mcp-remote abre o navegador para o login (e-mail e código).
+6. Ao salvar o arquivo, o Antigravity carrega o `vault` sozinho e o mcp-remote abre o navegador para o login (e-mail e código). Avise a pessoa que essa página vai aparecer. Se não aparecer em cerca de um minuto, peça para ela fechar o Antigravity por completo e abrir de novo.
 7. Testar (passo 4).
 
 ---
