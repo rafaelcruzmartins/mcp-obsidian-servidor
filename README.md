@@ -160,28 +160,23 @@ Se o modo de desenvolvedor não aparecer, o plano da pessoa não permite ou o ad
 
 ## Antigravity
 
-1. Achar o arquivo de configuração de MCP:
+No Antigravity, use a ponte mcp-remote: é o caminho testado. A conexão direta (`serverUrl`) não foi validada.
+
+1. Conferir o Node.js: `npx -v`. Se não existir, instalar o Node.js LTS (`winget install --id OpenJS.NodeJS.LTS --exact --source winget`) e abrir um PowerShell novo.
+2. Achar o arquivo de configuração de MCP:
    - pelo agente: menu **…** > **MCP Servers** > **Manage MCP Servers** > **View raw config**;
    - o arquivo global costuma ser `%USERPROFILE%\.gemini\antigravity\mcp_config.json` ou `%USERPROFILE%\.gemini\config\mcp_config.json`. Use o que o aplicativo abrir.
-2. Fazer o `.bak`. Se o arquivo não existir, criar com `{ "mcpServers": {} }`.
-3. Dentro de `"mcpServers"`, acrescentar (sem mexer nos outros):
+3. Fazer o `.bak`. Se o arquivo não existir, criar com `{ "mcpServers": {} }`.
+4. Dentro de `"mcpServers"`, acrescentar (sem mexer nos outros):
    ```json
    "vault": {
-     "serverUrl": "https://vault.dessa.casa"
+     "command": "cmd",
+     "args": ["/c", "npx", "-y", "mcp-remote@0.16.6", "https://vault.dessa.casa"]
    }
    ```
-4. Conferir o JSON e gravar em **UTF-8 sem BOM** (com BOM o Antigravity deixa de ler o arquivo inteiro).
-5. Pedir à pessoa para atualizar a lista de MCP Servers e clicar em **Authenticate** ao lado de `vault`. Abre o navegador para o login. Se no fim a página mostrar um código de autorização, a pessoa cola em **Enter authorization code** no Antigravity e clica em **Submit**.
-6. Testar (passo 4).
-
-Se o login do Antigravity não funcionar, use a ponte mcp-remote (precisa do Node.js LTS, ver o plano B do Claude Desktop) trocando o bloco por:
-
-```json
-"vault": {
-  "command": "cmd",
-  "args": ["/c", "npx", "-y", "mcp-remote@0.16.6", "https://vault.dessa.casa"]
-}
-```
+5. Conferir o JSON e gravar em **UTF-8 sem BOM** (com BOM o Antigravity deixa de ler o arquivo inteiro).
+6. Pedir à pessoa para atualizar a lista de MCP Servers. Na primeira vez abre o navegador para o login (e-mail e código).
+7. Testar (passo 4).
 
 ---
 
