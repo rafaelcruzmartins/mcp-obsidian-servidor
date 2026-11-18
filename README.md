@@ -173,9 +173,7 @@ Se o modo de desenvolvedor não aparecer, o plano da pessoa não permite ou o ad
 No Antigravity, use a ponte mcp-remote: é o caminho testado. A conexão direta (`serverUrl`) não foi validada.
 
 1. Conferir o Node.js: `npx -v`. Se não existir, instalar o Node.js LTS (`winget install --id OpenJS.NodeJS.LTS --exact --source winget`) e abrir um PowerShell novo.
-2. Achar o arquivo de configuração de MCP:
-   - pelo agente: menu **…** > **MCP Servers** > **Manage MCP Servers** > **View raw config**;
-   - o arquivo global costuma ser `%USERPROFILE%\.gemini\antigravity\mcp_config.json` ou `%USERPROFILE%\.gemini\config\mcp_config.json`. Use o que o aplicativo abrir.
+2. Achar o arquivo de configuração de MCP, `mcp_config.json`. Ele costuma ficar em `%USERPROFILE%\.gemini\antigravity\mcp_config.json` ou `%USERPROFILE%\.gemini\config\mcp_config.json`. Procure nos dois; se existirem os dois, pergunte à pessoa qual o Antigravity dela usa. Não descreva menus do Antigravity que você não consegue ver.
 3. Fazer o `.bak`. Se o arquivo não existir, criar com `{ "mcpServers": {} }`.
 4. Dentro de `"mcpServers"`, acrescentar (sem mexer nos outros):
    ```json
@@ -185,7 +183,7 @@ No Antigravity, use a ponte mcp-remote: é o caminho testado. A conexão direta 
    }
    ```
 5. Conferir o JSON e gravar em **UTF-8 sem BOM** (com BOM o Antigravity deixa de ler o arquivo inteiro).
-6. Pedir à pessoa para atualizar a lista de MCP Servers. Na primeira vez abre o navegador para o login (e-mail e código).
+6. Pedir à pessoa para fechar o Antigravity por completo e abrir de novo. Quando ele carregar o `vault`, o mcp-remote abre o navegador para o login (e-mail e código).
 7. Testar (passo 4).
 
 ---
