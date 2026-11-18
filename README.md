@@ -1,8 +1,11 @@
 # MCP do vault do Obsidian (vault.dessa.casa)
 
-Tutorial para conectar a IA do seu computador (Claude, ChatGPT ou Antigravity) ao vault compartilhado do Obsidian. Depois disso, a IA lê e atualiza as notas do vault de qualquer rede.
+Tutorial para usar o vault compartilhado do Obsidian no seu computador:
 
-Este repositório é só um tutorial: não tem código para instalar, só os passos.
+1. **MCP:** a sua IA (Claude, ChatGPT ou Antigravity) lê e atualiza as notas do vault de qualquer rede.
+2. **Obsidian:** uma cópia do vault no seu PC, sempre sincronizada com o servidor (Syncthing), instalada por um instalador de dois cliques.
+
+Este repositório é só um tutorial: os passos e o instalador da pasta `instalador/`.
 
 Se você recebeu este link, diga à sua IA:
 
@@ -12,7 +15,9 @@ Se você recebeu este link, diga à sua IA:
 
 ## Para a IA: leia tudo antes de começar
 
-Você foi chamada para configurar um servidor MCP remoto no computador desta pessoa. Siga as seções na ordem. Não invente passos que não estão aqui.
+Você foi chamada para configurar, no computador desta pessoa, o MCP remoto do vault e, se ela quiser, a cópia do vault para o Obsidian. Siga as seções na ordem. Não invente passos que não estão aqui.
+
+Faça as duas partes, a menos que a pessoa diga que quer só uma: primeiro o MCP (passos 1 a 4), depois o [Obsidian no computador](#obsidian-no-computador).
 
 ### O que é o servidor
 
@@ -70,7 +75,9 @@ Peça à IA configurada (em uma conversa nova, se for outro aplicativo): **"Usan
 - Não precisa testar escrita. Não crie notas de teste no vault: ele é compartilhado com outras pessoas.
 - Se falhar, veja [Problemas comuns](#problemas-comuns).
 
-No fim, diga à pessoa, em poucas linhas, o que foi configurado, onde fica o `.bak` e se o teste passou.
+Depois, siga para [Obsidian no computador](#obsidian-no-computador), se a pessoa quiser a cópia do vault.
+
+No fim de tudo, diga à pessoa, em poucas linhas, o que foi configurado, onde fica o `.bak` e se o teste passou.
 
 ---
 
@@ -178,6 +185,38 @@ Se o login do Antigravity não funcionar, use a ponte mcp-remote (precisa do Nod
 
 ---
 
+## Obsidian no computador
+
+O instalador baixa o Syncthing oficial (com conferência da soma SHA-256), coloca para abrir com o Windows, desliga o UPnP, cadastra o servidor do vault e cria a pasta do vault já compartilhada com ele. Não pede administrador e pode ser rodado de novo sem problema. Só Windows.
+
+Antes:
+- Se a pessoa já tiver o **vault original** (a pasta de onde o vault foi copiado para o servidor), não use este passo: ela fala com quem mandou o link, porque o caso dela é migração.
+- Se ela já tiver o Obsidian aberto em outra cópia do vault (por exemplo, por um caminho de rede `\\...`), ela deve parar de usar essa cópia depois desta parte.
+
+1. Baixe os dois arquivos direto na pasta **Downloads** da pessoa, com o PowerShell (assim o Windows não bloqueia o arquivo baixado). O comando acha a pasta Downloads mesmo se ela tiver sido movida para outro disco:
+   ```powershell
+   $d = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path
+   if (-not $d) { $d = Join-Path $env:USERPROFILE 'Downloads' }
+   $base = 'https://raw.githubusercontent.com/rafaelcruzmartins/mcp-obsidian-servidor/main/instalador'
+   foreach ($f in 'instalar-vault.cmd','instalar-vault.ps1') { Invoke-WebRequest "$base/$f" -OutFile (Join-Path $d $f) -UseBasicParsing }
+   Get-ChildItem $d -Filter 'instalar-vault.*'
+   ```
+   Confira que os dois arquivos existem e não estão vazios. Se já existirem versões antigas deles em Downloads, o comando as substitui (o que é o certo). Não altere o conteúdo deles.
+2. Diga à pessoa: **"Baixei os dois arquivos na sua pasta Downloads. Dê dois cliques em `instalar-vault.cmd`"** (não no `.ps1`; os dois precisam ficar juntos na mesma pasta). Se quiser, abra a pasta para ela com `explorer.exe $d`. Se o Windows mostrar um aviso de segurança, ela clica em **Executar** (ou **Mais informações > Executar assim mesmo**).
+3. Explique o que vai acontecer na janela:
+   - os passos de 1 a 5 aparecem em azul e verde;
+   - no fim aparece um código amarelo (o código deste PC), que já fica copiado. A pessoa **manda esse código para quem enviou o link do tutorial**, que aceita o PC no servidor;
+   - a janela fica esperando a primeira sincronização. Pode fechar: a sincronização continua sozinha.
+4. A pasta do vault fica em `Documentos\Vault` (ou em `%USERPROFILE%\Vault`, se Documentos estiver no OneDrive). O caminho aparece no fim da janela.
+5. Depois que o PC for aceito e os arquivos chegarem: no Obsidian, **Open folder as vault** (Abrir pasta como cofre) e escolher essa pasta.
+
+Não rode o instalador com parâmetros. As opções `-UsarPastaExistente` e `-SomenteEnviar` são só para a migração do vault original.
+
+Se der erro:
+- "a pasta ... já existe e não está vazia": já há uma pasta `Vault` com conteúdo. Pergunte à pessoa o que é; não apague. Ela pode renomear a pasta antiga e rodar de novo.
+- "não pode ficar dentro de OneDrive/Dropbox/Google Drive": rodar de novo resolve só se a pasta escolhida for outra; fale com quem mandou o link.
+- "o Syncthing não respondeu em 60 segundos": reiniciar o PC e dar dois cliques de novo.
+
 ## Outros sistemas
 
 Os passos são os mesmos; mudam só os caminhos e a ponte mcp-remote.
@@ -218,7 +257,7 @@ Qualquer outra falha: pare, mostre à pessoa a mensagem de erro exata e peça pa
 
 ---
 
-## O que este MCP não faz
+## O que este tutorial não faz
 
 - Não dá acesso a nada além das notas do vault.
-- Não sincroniza o Obsidian do computador. A cópia local do vault para o Obsidian é configurada à parte (Syncthing), com quem administra o vault.
+- O MCP não sincroniza o Obsidian do computador: isso é a parte [Obsidian no computador](#obsidian-no-computador), pelo Syncthing.
