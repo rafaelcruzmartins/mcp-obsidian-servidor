@@ -45,15 +45,24 @@ Use a URL exatamente como está: `https://vault.dessa.casa`, sem barra e sem `/m
 8. **Nunca execute o instalador (`instalar-vault.cmd` ou `instalar-vault.ps1`) você mesma**, nem por PowerShell, nem por qualquer outro meio. Só a pessoa roda, com dois cliques, depois de você explicar o que ele faz e ela concordar. Se ela não pediu a parte do Obsidian, nem baixe.
 9. Os passos estão escritos para Windows. Em macOS ou Linux, veja [Outros sistemas](#outros-sistemas) para os caminhos e comandos equivalentes.
 
-### Passo 1. Descobrir o cliente
+### Passo 1. Perguntar em qual aplicativo a pessoa quer o vault
 
-Descubra qual aplicativo vai usar o MCP. Se você está rodando dentro dele, já sabe. Se houver dúvida, pergunte à pessoa. Cada cliente tem a sua seção:
+**Sempre pergunte antes de configurar qualquer coisa.** Não conclua pelo aplicativo em que você está rodando: o aplicativo que está seguindo este tutorial (por exemplo, o Claude Code ou um agente de IDE) muitas vezes não é o que a pessoa usa no dia a dia.
 
-- Claude (claude.ai, Claude Desktop ou Claude Code): [Claude](#claude)
+Pergunte assim, com as opções:
+
+> Em qual aplicativo você quer usar o vault? Pode ser mais de um.
+> 1. Chat do Claude (Claude Desktop ou claude.ai)
+> 2. Claude Code (terminal)
+> 3. ChatGPT
+> 4. Antigravity
+
+Se a pessoa não souber, recomende a opção 1 (chat do Claude) ou o aplicativo de IA que ela mais usa. Configure só o que ela escolher, um de cada vez, e teste cada um (passo 4). Cada aplicativo tem a sua seção:
+
+- Chat do Claude (Desktop ou claude.ai): [Claude Desktop e claude.ai](#claude-desktop-e-claudeai-conector-personalizado)
+- Claude Code: [Claude Code](#claude-code)
 - ChatGPT: [ChatGPT](#chatgpt)
 - Antigravity: [Antigravity](#antigravity)
-
-Se a pessoa usa mais de um, configure um de cada vez e teste cada um (passo 4).
 
 ### Passo 2. Remover o MCP antigo do vault
 
